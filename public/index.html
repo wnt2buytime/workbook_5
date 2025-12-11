@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Книга контактов API</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1>Книга контактов API</h1>
+        <p>Express-приложение с маршрутами, middleware и статикой.</p>
+      </header>
+
+      <section>
+        <h2>Быстрый старт</h2>
+        <ol>
+          <li>Запустите сервер: <code>npm install</code> и <code>npm start</code>.</li>
+          <li>API база: <code>/api/contacts</code>, статус: <code>/api/health</code>.</li>
+          <li>Статическая папка доступна прямо с этого домена.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Примеры запросов</h2>
+        <pre><code>GET  /api/contacts
+GET  /api/contacts?search=alex
+GET  /api/contacts/c2
+POST /api/contacts
+body: { "name": "New User", "phone": "+7 900 000-00-00", "email": "new@ex.com" }
+</code></pre>
+      </section>
+
+      <section>
+        <h2>Живой пример (fetch)</h2>
+        <button id="load">Загрузить контакты</button>
+        <div id="result" class="card"></div>
+      </section>
+    </main>
+
+    <script>
+      document.getElementById('load').addEventListener('click', async () => {
+        const block = document.getElementById('result');
+        block.textContent = 'Загрузка...';
+        try {
+          const res = await fetch('/api/contacts');
+          const data = await res.json();
+          block.textContent = JSON.stringify(data, null, 2);
+        } catch (e) {
+          block.textContent = 'Ошибка запроса: ' + e.message;
+        }
+      });
+    </script>
+  </body>
+</html>
+
+
